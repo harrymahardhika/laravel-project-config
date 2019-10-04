@@ -8,7 +8,7 @@ wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/ma
 mv editorconfig .editorconfig
 
 rm .gitignore
-wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/.gitignore
+wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/gitignore
 
 rm build_helper
 wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/build_helper
