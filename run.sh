@@ -12,6 +12,8 @@ mv gitignore .gitignore
 
 rm build_helper
 wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/build_helper
+chmod +x build_helper
 
 rm php-cs-fixer
 wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/php-cs-fixer
+chmod +x php-cs-fixer
