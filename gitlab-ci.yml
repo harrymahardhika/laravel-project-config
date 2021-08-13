@@ -1,0 +1,32 @@
+image: php:7.4-cli
+
+services:
+  - postgres:12.7
+
+variables:
+  POSTGRES_DB: test
+  POSTGRES_USER: runner
+  POSTGRES_PASSWORD: ""
+  POSTGRES_HOST_AUTH_METHOD: trust
+
+cache:
+  paths:
+    - vendor/
+
+before_script:
+  # Update packages
+  - apt-get update -yqq
+  - apt-get install git libcurl4-gnutls-dev libicu-dev libmcrypt-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpq-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev libonig-dev libzip-dev -yqq
+  - docker-php-ext-install pdo_pgsql curl json intl gd xml zip bz2 opcache pgsql
+  - pecl install xdebug
+  - docker-php-ext-enable xdebug
+  - curl -sS https://getcomposer.org/installer | php
+  - php composer.phar install
+  - cp .env.gitlab-ci .env
+  - php artisan key:generate
+  - php artisan optimize:clear
+
+test:
+  script:
+    # run laravel tests
+    - php vendor/bin/phpunit --coverage-text --colors=never
