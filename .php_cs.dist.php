@@ -3,6 +3,7 @@
 $rules = [
     '@PSR2' => true,
     '@Symfony' => true,
+    'php_unit_method_casing' => ['case' => 'snake_case'],
 ];
 
 $finder = (new PhpCsFixer\Finder())
