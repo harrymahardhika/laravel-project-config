@@ -1,4 +1,7 @@
-image: php:7.4-cli
+# for php 7.4
+# image: php:7.4-cli
+# for php 8.0
+image: php:8.0.14-cli
 
 services:
   - postgres:12.7
@@ -14,13 +17,21 @@ cache:
     - vendor/
 
 before_script:
-  # Update packages
+  # update packages
   - apt-get update -yqq
-  - apt-get install git libcurl4-gnutls-dev libicu-dev libmcrypt-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpq-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev libonig-dev libzip-dev -yqq
-  - docker-php-ext-install pdo_pgsql curl json intl gd xml zip bz2 opcache pgsql exif pcntl
+  # for php 7.4
+  # - apt-get install git libcurl4-gnutls-dev libicu-dev libmcrypt-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpq-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev libonig-dev libzip-dev -yqq
+  # - docker-php-ext-install pdo_pgsql curl json intl gd xml zip bz2 opcache pgsql exif pcntl
+  # for php 8.0
+  - apt-get install -yqq libcurl4-gnutls-dev libicu-dev libmcrypt-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpq-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev libzip-dev
+  - docker-php-ext-install intl gd xml zip bz2 pdo_pgsql pgsql pcntl
+  # install composer
   - curl -sS https://getcomposer.org/installer | php
+  # install composer dependencies
   - php composer.phar install
+  # copy .env
   - cp .env.gitlab-ci .env
+  # comment lines below for Laravel package project
   - php artisan key:generate
   - php artisan optimize:clear
 

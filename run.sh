@@ -28,3 +28,9 @@ rm php-cs-fixer
 chmod +x artisan
 
 composer require --dev friendsofphp/php-cs-fixer:^3.0
+
+tmp=$(mktemp)
+jq '.require .php = "^8.0"' composer.json > "$tmp" && mv "$tmp" composer.json
+jq '.scripts |= (.fix = "vendor/bin/php-cs-fixer fix --config=.php_cs.dist.php")' composer.json > "$tmp" && mv "$tmp" composer.json
+
+composer run fix
