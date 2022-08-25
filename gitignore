@@ -43,5 +43,5 @@ public/vendor/*
 public/webfonts/*
 storage/*.key
 Thumbs.db
+worker.log
 yarn-error.log
-
