@@ -1,0 +1,9 @@
+{
+    "endWithNewLine": true,
+    "indentSize": 2,
+    "noMultipleEmptyLines": true,
+    "sortHtmlAttributes": "code-guide",
+    "useTabs": false,
+    "wrapAttributes": "auto",
+    "wrapLineLength": 120
+}
