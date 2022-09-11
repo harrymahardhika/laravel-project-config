@@ -1,11 +1,12 @@
 {
     "preset": "laravel",
     "rules": {
-        "no_superfluous_phpdoc_tags": true,
         "class_attributes_separation": {
             "elements": {
                 "const": "only_if_meta"
             }
-        }
+        },
+        "no_superfluous_phpdoc_tags": true,
+        "yoda_style": true
     }
 }
