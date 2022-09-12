@@ -30,6 +30,7 @@ Guardfile.save
 Homestead.json
 Homestead.yaml
 npm-debug.log
+public/build/*
 public/css/*
 public/fonts
 public/fonts/*
