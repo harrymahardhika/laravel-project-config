@@ -1,7 +1,7 @@
 # for php 7.4
 # image: php:7.4-cli
 # for php 8.0
-image: php:8.0.14-cli
+image: php:8.0.22-cli
 
 services:
   - postgres:12.7
@@ -29,6 +29,12 @@ before_script:
   - curl -sS https://getcomposer.org/installer | php
   # install composer dependencies
   - php composer.phar install
+  # install node js
+  - curl -sL https://deb.nodesource.com/setup_16.x | bash
+  - apt-get install nodejs -yq
+  # build assets
+  - npm install
+  - npm run
   # copy .env
   - cp .env.gitlab-ci .env
   # comment lines below for Laravel package project
@@ -38,4 +44,4 @@ before_script:
 test:
   script:
     # run laravel tests
-    - php vendor/bin/phpunit -d memory_limit=-1 --colors=never
+    - php artisan test
