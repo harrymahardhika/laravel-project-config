@@ -7,6 +7,9 @@
             }
         },
         "no_superfluous_phpdoc_tags": true,
+        "phpdoc_align": {
+            "align": "left"
+        },
         "yoda_style": true
     }
 }
