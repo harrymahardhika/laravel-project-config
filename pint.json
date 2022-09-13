@@ -8,7 +8,18 @@
         },
         "no_superfluous_phpdoc_tags": true,
         "phpdoc_align": {
-            "align": "left"
+            "align": "vertical",
+            "tags": [
+                "method",
+                "param",
+                "property-read",
+                "property-write",
+                "property",
+                "return",
+                "throws",
+                "type",
+                "var"
+            ]
         },
         "yoda_style": true
     }
