@@ -21,6 +21,9 @@
                 "var"
             ]
         },
+        "phpdoc_order": {
+            "order": ["method", "mixin", "property", "property-read", "param", "throws", "return"]
+        },
         "yoda_style": true
     }
 }
