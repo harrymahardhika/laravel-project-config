@@ -45,6 +45,6 @@ jq '.scripts |= (.phpstan = "vendor/bin/phpstan analyse")' composer.json > "$tmp
 jq '.scripts |= (.format = [])' composer.json > "$tmp" && mv "$tmp" composer.json
 jq '.scripts.format |= .+["vendor/bin/pint --verbose"]' composer.json > "$tmp" && mv "$tmp" composer.json
 jq '.scripts.format |= .+["node_modules/.bin/prettier -w -l resources/js"]' composer.json > "$tmp" && mv "$tmp" composer.json
-jq --indent 4 '.scripts.format |= .+["node_modules/.bin/blade-formatter -w -d resources/**/*.blade.php"]' composer.json > "$tmp" && mv "$tmp" composer.json
+jq --indent 4 '.scripts.format |= .+["node_modules/.bin/blade-formatter -w -d resources/views/**/*.blade.php"]' composer.json > "$tmp" && mv "$tmp" composer.json
 
 composer run format
