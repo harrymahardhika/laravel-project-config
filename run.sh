@@ -37,7 +37,7 @@ chmod +x artisan
 
 composer require --dev barryvdh/laravel-debugbar barryvdh/laravel-ide-helper nunomaduro/larastan laravel/pint
 
-npm install --save-dev blade-formatter prettier prettier-plugin-organize-attributes
+npm install --save-dev blade-formatter prettier prettier-plugin-organize-attributes prettier-plugin-organize-imports @volar/vue-typescript
 npm uninstall lodash postcss
 
 tmp=$(mktemp)
