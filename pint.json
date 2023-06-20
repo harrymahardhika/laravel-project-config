@@ -1,29 +1,23 @@
 {
-    "preset": "laravel",
-    "rules": {
-        "class_attributes_separation": {
-            "elements": {
-                "const": "only_if_meta"
-            }
-        },
-        "no_superfluous_phpdoc_tags": true,
-        "phpdoc_align": {
-            "align": "vertical",
-            "tags": [
-                "method",
-                "param",
-                "property-read",
-                "property-write",
-                "property",
-                "return",
-                "throws",
-                "type",
-                "var"
-            ]
-        },
-        "phpdoc_order": {
-            "order": ["method", "mixin", "property", "property-read", "param", "throws", "return"]
-        },
-        "yoda_style": true
-    }
+  "preset": "laravel",
+  "rules": {
+    "class_attributes_separation": {
+      "elements": {
+        "const": "none",
+        "property": "one"
+      }
+    },
+    "declare_strict_types": true,
+    "no_superfluous_phpdoc_tags": true,
+    "ordered_traits": true,
+    "phpdoc_align": {
+      "align": "vertical",
+      "tags": ["method", "param", "property-read", "property-write", "property", "return", "throws", "type", "var"]
+    },
+    "phpdoc_order": {
+      "order": ["method", "mixin", "property", "property-read", "param", "throws", "return"]
+    },
+    "yoda_style": true
+  }
 }
+
