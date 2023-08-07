@@ -35,7 +35,7 @@ wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/ma
 
 chmod +x artisan
 
-composer require --dev barryvdh/laravel-debugbar barryvdh/laravel-ide-helper nunomaduro/larastan laravel/pint
+composer require --dev barryvdh/laravel-debugbar barryvdh/laravel-ide-helper nunomaduro/larastan laravel/pint nunomaduro/phpinsights
 
 npm install --save-dev blade-formatter prettier prettier-plugin-organize-attributes prettier-plugin-organize-imports @volar/vue-typescript
 npm uninstall lodash postcss
