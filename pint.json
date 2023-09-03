@@ -8,6 +8,7 @@
       }
     },
     "declare_strict_types": true,
+    "global_namespace_import": false,
     "no_superfluous_phpdoc_tags": true,
     "no_extra_blank_lines": {
       "tokens": [
@@ -30,7 +31,17 @@
     "ordered_traits": true,
     "phpdoc_align": {
       "align": "vertical",
-      "tags": ["method", "param", "property-read", "property-write", "property", "return", "throws", "type", "var"]
+      "tags": [
+        "method",
+        "param",
+        "property-read",
+        "property-write",
+        "property",
+        "return",
+        "throws",
+        "type",
+        "var"
+      ]
     },
     "phpdoc_order": {
       "order": ["method", "mixin", "property", "property-read", "param", "throws", "return"]

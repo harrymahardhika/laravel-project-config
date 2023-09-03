@@ -1,10 +1,7 @@
-# for php 7.4
-# image: php:7.4-cli
-# for php 8.0
-image: php:8.0.22-cli
+image: php:8.1-cli
 
 services:
-  - postgres:12.7
+  - postgres:14.9
 
 variables:
   POSTGRES_DB: test
@@ -19,10 +16,6 @@ cache:
 before_script:
   # update packages
   - apt-get update -yqq
-  # for php 7.4
-  # - apt-get install git libcurl4-gnutls-dev libicu-dev libmcrypt-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpq-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev libonig-dev libzip-dev -yqq
-  # - docker-php-ext-install pdo_pgsql curl json intl gd xml zip bz2 opcache pgsql exif pcntl
-  # for php 8.0
   - apt-get install -yqq libcurl4-gnutls-dev libicu-dev libmcrypt-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpq-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev libzip-dev
   - docker-php-ext-install intl gd xml zip bz2 pdo_pgsql pgsql pcntl
   # install composer
@@ -30,7 +23,7 @@ before_script:
   # install composer dependencies
   - php composer.phar install
   # install node js
-  - curl -sL https://deb.nodesource.com/setup_16.x | bash
+  - curl -sL https://deb.nodesource.com/setup_18.x | bash
   - apt-get install nodejs -yq
   # build assets
   - npm install
