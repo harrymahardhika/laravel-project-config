@@ -39,14 +39,13 @@ composer require --dev barryvdh/laravel-debugbar barryvdh/laravel-ide-helper nun
 composer require pestphp/pest --dev -W
 composer require pestphp/pest-plugin-laravel --dev
 
-npm install --save-dev blade-formatter prettier prettier-plugin-organize-attributes prettier-plugin-organize-imports @vue/typescript
+npm install --save-dev blade-formatter prettier prettier-plugin-organize-attributes prettier-plugin-organize-imports
 npm uninstall lodash postcss
 
 tmp=$(mktemp)
 jq '.scripts |= (.phpstan = "vendor/bin/phpstan analyse")' composer.json > "$tmp" && mv "$tmp" composer.json
 jq '.scripts |= (.format = [])' composer.json > "$tmp" && mv "$tmp" composer.json
 jq '.scripts.format |= .+["vendor/bin/pint --verbose"]' composer.json > "$tmp" && mv "$tmp" composer.json
-jq '.scripts.format |= .+["node_modules/.bin/prettier -w -l resources/js"]' composer.json > "$tmp" && mv "$tmp" composer.json
 jq --indent 2 '.scripts.format |= .+["node_modules/.bin/blade-formatter -w -d resources/views/**/*.blade.php"]' composer.json > "$tmp" && mv "$tmp" composer.json
 
 composer run format

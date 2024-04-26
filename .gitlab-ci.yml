@@ -1,4 +1,4 @@
-image: php:8.1-cli
+image: php:8.3-cli
 
 services:
   - postgres:14.9
@@ -23,7 +23,7 @@ before_script:
   # install composer dependencies
   - php composer.phar install
   # install node js
-  - curl -sL https://deb.nodesource.com/setup_18.x | bash
+  - curl -sL https://deb.nodesource.com/setup_20.x | bash
   - apt-get install nodejs -yq
   # build assets
   - npm install
