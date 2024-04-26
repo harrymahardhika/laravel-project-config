@@ -35,7 +35,7 @@ wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/ma
 
 chmod +x artisan
 
-composer require --dev barryvdh/laravel-debugbar barryvdh/laravel-ide-helper nunomaduro/larastan laravel/pint nunomaduro/phpinsights
+composer require --dev barryvdh/laravel-debugbar barryvdh/laravel-ide-helper larastan/larastan laravel/pint
 composer require pestphp/pest --dev -W
 composer require pestphp/pest-plugin-laravel --dev
 
