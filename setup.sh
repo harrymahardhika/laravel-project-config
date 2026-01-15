@@ -78,6 +78,7 @@ fi
 chmod +x artisan
 
 mkdir -p app/Domains
+mkdir -p lang
 
 touch app/Domains/.gitkeep
 
@@ -96,14 +97,27 @@ for env_file in .env .env.testing .env.example; do
   fi
 done
 
-composer require --dev barryvdh/laravel-debugbar barryvdh/laravel-ide-helper larastan/larastan laravel/pint rector/rector driftingly/rector-laravel
-
-php artisan install:api
+composer require --dev -vvv barryvdh/laravel-debugbar barryvdh/laravel-ide-helper larastan/larastan laravel/pint rector/rector driftingly/rector-laravel
 
 if [ "$USE_NODE" = true ]; then
   ensure_pnpm
   pnpm add -D blade-formatter prettier prettier-plugin-organize-attributes prettier-plugin-organize-imports
-  pnpm remove lodash postcss || true
+  if [ -f package.json ]; then
+    deps_to_remove=()
+    if jq -e '.dependencies.lodash? // empty' package.json >/dev/null; then
+      deps_to_remove+=("lodash")
+    elif jq -e '.devDependencies.lodash? // empty' package.json >/dev/null; then
+      deps_to_remove+=("lodash")
+    fi
+    if jq -e '.dependencies.postcss? // empty' package.json >/dev/null; then
+      deps_to_remove+=("postcss")
+    elif jq -e '.devDependencies.postcss? // empty' package.json >/dev/null; then
+      deps_to_remove+=("postcss")
+    fi
+    if [ "${#deps_to_remove[@]}" -gt 0 ]; then
+      pnpm remove "${deps_to_remove[@]}"
+    fi
+  fi
 fi
 
 tmp=$(mktemp)
@@ -115,4 +129,7 @@ if [ "$USE_NODE" = true ]; then
   jq --indent 4 '.scripts.format |= .+["node_modules/.bin/blade-formatter -w -d resources/views/**/*.blade.php"]' composer.json > "$tmp" && mv "$tmp" composer.json
 fi
 
+php artisan install:api -n
+
 composer run format
+
