@@ -98,10 +98,12 @@ done
 
 composer require --dev barryvdh/laravel-debugbar barryvdh/laravel-ide-helper larastan/larastan laravel/pint rector/rector driftingly/rector-laravel
 
+php artisan install:api
+
 if [ "$USE_NODE" = true ]; then
   ensure_pnpm
   pnpm add -D blade-formatter prettier prettier-plugin-organize-attributes prettier-plugin-organize-imports
-  pnpm remove lodash postcss
+  pnpm remove lodash postcss || true
 fi
 
 tmp=$(mktemp)
