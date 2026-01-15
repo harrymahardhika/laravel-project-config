@@ -17,6 +17,12 @@ bash setup.sh
 
 You will be prompted to choose between API-only setup (no Node.js tooling) or a full app setup.
 
+Non-interactive usage (for CI or scripting) can set the project type explicitly:
+
+```bash
+PROJECT_TYPE=1 curl -fsSL https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/setup.sh | bash
+```
+
 ## What the Script Does
 - Replaces common config files: `.editorconfig`, `.gitignore`, `.env.gitlab-ci`, `.gitlab-ci.yml`, `.github/workflows/test.yml`, `phpstan.neon`, `rector.php`, `pint.json`, `.bladeformatterrc.json`, `.prettierrc.json`.
 - Installs dev tools: Laravel Pint, Larastan, Pest, IDE Helper, Prettier, Blade Formatter (full app only).

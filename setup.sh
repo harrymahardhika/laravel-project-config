@@ -5,10 +5,16 @@ set -euo pipefail
 echo "Select project type:"
 echo "1) API only (no Node.js tooling)"
 echo "2) Full app (includes Node.js tooling)"
-read -r -p "Enter 1 or 2 [2]: " PROJECT_TYPE
+if [ -n "${PROJECT_TYPE:-}" ]; then
+  PROJECT_TYPE_INPUT="$PROJECT_TYPE"
+elif [ -t 0 ]; then
+  read -r -p "Enter 1 or 2 [2]: " PROJECT_TYPE_INPUT
+else
+  read -r -p "Enter 1 or 2 [2]: " PROJECT_TYPE_INPUT </dev/tty || PROJECT_TYPE_INPUT=""
+fi
 
 USE_NODE=true
-if [ "${PROJECT_TYPE:-2}" = "1" ]; then
+if [ "${PROJECT_TYPE_INPUT:-2}" = "1" ]; then
   USE_NODE=false
 fi
 
@@ -93,4 +99,3 @@ fi
 
 vendor/bin/rector
 vendor/bin/pint
-
