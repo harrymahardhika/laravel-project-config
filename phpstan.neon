@@ -3,4 +3,10 @@ includes:
 parameters:
     paths:
         - app
+        - bootstrap
+        - routes
     level: 8
+    checkModelAppends: false
+    excludePaths:
+        analyse:
+            - tests

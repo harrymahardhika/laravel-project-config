@@ -25,9 +25,14 @@ before_script:
   # install node js
   - curl -sL https://deb.nodesource.com/setup_20.x | bash
   - apt-get install nodejs -yq
-  # build assets
-  - npm install
-  - npm run
+  # build assets (if package.json exists)
+  - corepack enable
+  - corepack prepare pnpm@latest --activate
+  - |
+      if [ -f package.json ]; then
+        pnpm install
+        pnpm run build --if-present
+      fi
   # copy .env
   - cp .env.gitlab-ci .env
   # comment lines below for Laravel package project
