@@ -23,9 +23,16 @@ Non-interactive usage (for CI or scripting) can set the project type explicitly:
 PROJECT_TYPE=1 curl -fsSL https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/setup.sh | bash
 ```
 
+If you are running from a local clone, you can point the script at local files:
+
+```bash
+BASE_DIR=/absolute/path/to/laravel-project-config bash setup.sh
+```
+
 ## What the Script Does
 - Replaces common config files: `.editorconfig`, `.gitignore`, `.env.gitlab-ci`, `.gitlab-ci.yml`, `.github/workflows/test.yml`, `phpstan.neon`, `rector.php`, `pint.json`, `.bladeformatterrc.json`, `.prettierrc.json`.
 - Installs dev tools: Laravel Pint, Larastan, Pest, IDE Helper, Prettier, Blade Formatter (full app only).
+- Ensures common directories exist: `app/Domains` (with `.gitkeep`) and `lang`.
 - Adds or updates Composer scripts for formatting and PHPStan.
 
 ## Requirements

@@ -33,44 +33,91 @@ ensure_pnpm() {
   exit 1
 }
 
+fetch() {
+  local url="$1"
+  local output="${2:-}"
+
+  if command -v curl >/dev/null 2>&1; then
+    if [ -n "$output" ]; then
+      curl -fsSL "$url" -o "$output"
+    else
+      curl -fsSL "$url" -O
+    fi
+    return
+  fi
+
+  if command -v wget >/dev/null 2>&1; then
+    if [ -n "$output" ]; then
+      wget -O "$output" "$url"
+    else
+      wget "$url"
+    fi
+    return
+  fi
+
+  echo "Missing download tool. Install curl or wget." >&2
+  exit 1
+}
+
+BASE_URL="${BASE_URL:-https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master}"
+
+fetch_repo() {
+  local path="$1"
+  local output="${2:-}"
+
+  if [ -n "${BASE_DIR:-}" ] && [ -f "$BASE_DIR/$path" ]; then
+    if [ -n "$output" ]; then
+      cp "$BASE_DIR/$path" "$output"
+    else
+      cp "$BASE_DIR/$path" .
+    fi
+    return
+  fi
+
+  fetch "${BASE_URL}/${path}" "$output"
+}
+
 rm -f .php_cs.dist .php_cs.dist.php php-cs-fixer
 
 rm -f .editorconfig
-wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/.editorconfig
+fetch_repo .editorconfig
 
 rm -f .gitignore
-wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/gitignore
+fetch_repo gitignore
 mv gitignore .gitignore
 
 rm -f .env.gitlab-ci
-wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/.env.gitlab-ci
+fetch_repo .env.gitlab-ci
+
+rm -f .env.github-ci
+fetch_repo .env.github-ci
 
 rm -f .gitlab-ci.yml
-wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/.gitlab-ci.yml
+fetch_repo .gitlab-ci.yml
 
 mkdir -p .github/workflows
 rm -f .github/workflows/test.yml
-wget -O .github/workflows/test.yml https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/test.yaml
+fetch_repo test.yaml .github/workflows/test.yml
 
 rm -f build_helper
-wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/build_helper
+fetch_repo build_helper
 chmod +x build_helper
 
 rm -f phpstan.neon
-wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/phpstan.neon
+fetch_repo phpstan.neon
 
 rm -f rector.php
-wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/rector.php
+fetch_repo rector.php
 
 rm -f pint.json
-wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/pint.json
+fetch_repo pint.json
 
 if [ "$USE_NODE" = true ]; then
   rm -f .bladeformatterrc.json
-  wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/.bladeformatterrc.json
+  fetch_repo .bladeformatterrc.json
 
   rm -f .prettierrc.json
-  wget https://raw.githubusercontent.com/harrymahardhika/laravel-project-config/master/.prettierrc.json
+  fetch_repo .prettierrc.json
 else
   rm -f .bladeformatterrc.json .prettierrc.json
 fi
@@ -132,4 +179,3 @@ fi
 php artisan install:api -n
 
 composer run format
-

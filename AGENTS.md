@@ -9,6 +9,7 @@ This repository is a configuration bundle for Laravel projects. Everything lives
 - `phpstan.neon`, `rector.php`, `pint.json`, `.prettierrc.json`, `.bladeformatterrc.json`, `.editorconfig`: linting/formatting rules.
 - `.env.gitlab-ci`: CI environment defaults.
 - `gitignore`: baseline ignore file for Laravel projects.
+ - `lang/`: localization directory created during setup to align with Laravel defaults.
 
 ## Build, Test, and Development Commands
 These scripts are intended to be run from a Laravel app that consumes this repo:
