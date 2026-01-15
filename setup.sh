@@ -81,6 +81,21 @@ mkdir -p app/Domains
 
 touch app/Domains/.gitkeep
 
+if [ -f .env ]; then
+  cp .env .env.testing
+fi
+
+for env_file in .env .env.testing .env.example; do
+  if [ -f "$env_file" ]; then
+    sed -i.bak \
+      -e 's/^CACHE_STORE=database$/CACHE_STORE=redis/' \
+      -e 's/^QUEUE_CONNECTION=database$/QUEUE_CONNECTION=redis/' \
+      -e 's/^SESSION_DRIVER=database$/SESSION_DRIVER=redis/' \
+      "$env_file"
+    rm -f "${env_file}.bak"
+  fi
+done
+
 composer require --dev barryvdh/laravel-debugbar barryvdh/laravel-ide-helper larastan/larastan laravel/pint rector/rector driftingly/rector-laravel
 
 if [ "$USE_NODE" = true ]; then
@@ -92,10 +107,10 @@ fi
 tmp=$(mktemp)
 jq '.scripts |= (.phpstan = "vendor/bin/phpstan analyse")' composer.json > "$tmp" && mv "$tmp" composer.json
 jq '.scripts |= (.format = [])' composer.json > "$tmp" && mv "$tmp" composer.json
+jq '.scripts.format |= .+["vendor/bin/rector"]' composer.json > "$tmp" && mv "$tmp" composer.json
 jq '.scripts.format |= .+["vendor/bin/pint --verbose"]' composer.json > "$tmp" && mv "$tmp" composer.json
 if [ "$USE_NODE" = true ]; then
   jq --indent 4 '.scripts.format |= .+["node_modules/.bin/blade-formatter -w -d resources/views/**/*.blade.php"]' composer.json > "$tmp" && mv "$tmp" composer.json
 fi
 
-vendor/bin/rector
-vendor/bin/pint
+composer run format
