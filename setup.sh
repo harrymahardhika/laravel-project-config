@@ -133,7 +133,7 @@ if [ -f .env ]; then
   cp .env .env.testing
 fi
 
-for env_file in .env .env.testing .env.example; do
+for env_file in .env .env.example; do
   if [ -f "$env_file" ]; then
     sed -i.bak \
       -e 's/^CACHE_STORE=database$/CACHE_STORE=redis/' \
