@@ -1,5 +1,16 @@
-#! /usr/bin/env sh
+#! /usr/bin/env bash
+
+set -e
 
 php artisan ide-helper:generate
-php artisan ide-helper:meta
 php artisan ide-helper:models -W -R --dir="app/Domains/**/Models"
+
+./vendor/bin/rector
+./vendor/bin/pint
+
+MESSAGE="Build helper tasks have been completed successfully."
+if command -v notify-send >/dev/null 2>&1; then
+    notify-send "Build Helper Complete" "$MESSAGE"
+elif command -v osascript >/dev/null 2>&1; then
+    osascript -e "display notification \"$MESSAGE\" with title \"Build Helper Complete\""
+fi

@@ -99,9 +99,10 @@ mkdir -p .github/workflows
 rm -f .github/workflows/test.yml
 fetch_repo test.yaml .github/workflows/test.yml
 
-rm -f build_helper
-fetch_repo build_helper
-chmod +x build_helper
+mkdir -p bin
+rm -f bin/build_helper
+fetch_repo build_helper bin/build_helper
+chmod +x bin/build_helper
 
 rm -f phpstan.neon
 fetch_repo phpstan.neon
